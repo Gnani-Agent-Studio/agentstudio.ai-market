@@ -45,22 +45,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mobile menu functionality
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const navMenu = document.querySelector('.nav-menu');
-    
+    const navDropdown = document.querySelector('.nav-dropdown');
+    const submenuTriggers = document.querySelectorAll('.submenu-trigger');
+
     if (mobileMenuButton) {
         mobileMenuButton.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuButton.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
+            navDropdown.classList.toggle('active');
+            mobileMenuButton.innerHTML = navDropdown.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>'
                 : '<i class="fas fa-bars"></i>';
+        });
+
+        // Handle submenu toggles
+        submenuTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const parent = trigger.parentElement;
+                parent.classList.toggle('active');
+            });
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                navMenu.classList.remove('active');
+            if (!navDropdown.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                navDropdown.classList.remove('active');
                 mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+                
+                // Close all submenus
+                document.querySelectorAll('.has-submenu').forEach(item => {
+                    item.classList.remove('active');
+                });
             }
+        });
+
+        // Prevent menu from closing when clicking inside
+        navDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     }
 
