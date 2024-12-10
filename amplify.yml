@@ -3,8 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install -g npm@latest
-        - npm ci || npm install
+        - npm install
     build:
       commands:
         - npm run build
@@ -14,5 +13,4 @@ frontend:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
-      - $(npm root)/**/* 
+      - node_modules/**/* 

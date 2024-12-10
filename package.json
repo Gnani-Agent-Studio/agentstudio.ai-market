@@ -5,9 +5,9 @@
   "scripts": {
     "start": "serve .",
     "dev": "live-server --port=3000",
-    "build": "mkdir -p dist && cp -r index.html about.html ai-agents.html contact.html for-developers.html for-users.html login.html pricing.html signup.html css js images dist/",
-    "postbuild": "node build-validation.js",
-    "security-check": "npm audit"
+    "prebuild": "npm install",
+    "build": "mkdir -p dist && cp -r *.html css js images dist/",
+    "postbuild": "node build-validation.js"
   },
   "dependencies": {
     "serve": "^14.2.1"

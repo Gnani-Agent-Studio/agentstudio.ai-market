@@ -12,15 +12,22 @@ const validateBuild = () => {
     const distPath = path.join(__dirname, 'dist');
     
     if (!fs.existsSync(distPath)) {
-        throw new Error('Dist directory does not exist');
+        console.error('Dist directory does not exist');
+        process.exit(1);
     }
 
+    let missingFiles = [];
     requiredFiles.forEach(file => {
         const filePath = path.join(distPath, file);
         if (!fs.existsSync(filePath)) {
-            throw new Error(`Required file missing: ${file}`);
+            missingFiles.push(file);
         }
     });
+
+    if (missingFiles.length > 0) {
+        console.error('Missing required files:', missingFiles.join(', '));
+        process.exit(1);
+    }
 
     console.log('Build validation successful!');
 };
