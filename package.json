@@ -1,0 +1,17 @@
+{
+  "name": "agent-studio-ai",
+  "version": "1.0.0",
+  "description": "AI Agents Marketplace Frontend",
+  "scripts": {
+    "start": "serve .",
+    "dev": "live-server --port=3000",
+    "build": "mkdir -p dist && cp -r index.html css js images *.html dist/",
+    "postbuild": "echo 'Build completed successfully'"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

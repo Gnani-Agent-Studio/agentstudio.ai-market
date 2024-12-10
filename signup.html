@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up for Agent-Studio.AI - Start using AI agents for your workflow">
+    <title>Sign Up - Agent-Studio.AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="/" class="gradient-text">Agent-Studio.AI</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="auth-section">
+        <div class="auth-container">
+            <h1 class="gradient-text">Create Account</h1>
+            <form class="auth-form" action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <div class="form-group terms">
+                    <label>
+                        <input type="checkbox" name="terms" required>
+                        I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>
+                    </label>
+                </div>
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+            <div class="auth-divider">
+                <span>Or sign up with</span>
+            </div>
+            <div class="social-auth">
+                <button class="social-button google">
+                    <i class="fab fa-google"></i>
+                    Google
+                </button>
+                <button class="social-button github">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </button>
+            </div>
+            <p class="auth-redirect">
+                Already have an account? <a href="/login.html">Login</a>
+            </p>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <!-- Same footer as index.html -->
+    </footer>
+</body>
+</html> 
