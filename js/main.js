@@ -43,16 +43,50 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.cursor = 'auto';
     }
 
-    // Mobile menu toggle
+    // Mobile menu functionality
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navMenu = document.querySelector('.nav-menu');
-
+    
     if (mobileMenuButton) {
         mobileMenuButton.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            mobileMenuButton.classList.toggle('active');
+            mobileMenuButton.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+            }
         });
     }
+
+    // Handle 404 for broken links
+    const handleBrokenLinks = () => {
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') === '#' || !link.getAttribute('href')) {
+                    e.preventDefault();
+                    const main = document.querySelector('main') || document.body;
+                    const notFound = document.createElement('div');
+                    notFound.className = 'page-not-found';
+                    insertContent(notFound, `
+                        <h1 class="gradient-text">Page Coming Soon</h1>
+                        <p>${sanitizeHTML('This feature is currently under development.')}</p>
+                        <a href="javascript:history.back()">Go Back</a>
+                    `);
+                    main.innerHTML = '';
+                    main.appendChild(notFound);
+                }
+            });
+        });
+    };
+
+    handleBrokenLinks();
 
     // Intersection Observer for animations
     const observerOptions = {
@@ -135,6 +169,81 @@ document.addEventListener('DOMContentLoaded', () => {
             particles.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
         });
     }
+
+    // Image security validation
+    function validateImage(url) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = function() {
+                // Check if image is from allowed domain
+                const allowedDomains = [
+                    'agent-studio.ai',
+                    'cdn.agent-studio.ai',
+                    'images.agent-studio.ai'
+                ];
+                
+                try {
+                    const imageUrl = new URL(url);
+                    if (!allowedDomains.includes(imageUrl.hostname)) {
+                        reject(new Error('Invalid image domain'));
+                        return;
+                    }
+                    
+                    // Check image dimensions
+                    if (this.width > 4000 || this.height > 4000) {
+                        reject(new Error('Image dimensions too large'));
+                        return;
+                    }
+                    
+                    // Check file size (if available)
+                    if (this.size && this.size > 5 * 1024 * 1024) { // 5MB limit
+                        reject(new Error('Image file size too large'));
+                        return;
+                    }
+                    
+                    resolve(url);
+                } catch (error) {
+                    reject(new Error('Invalid image URL'));
+                }
+            };
+            
+            img.onerror = function() {
+                reject(new Error('Failed to load image'));
+            };
+            
+            img.src = url;
+        });
+    }
+
+    // Use the validation when loading images
+    function loadSecureImage(imgElement, url) {
+        validateImage(url)
+            .then(validatedUrl => {
+                imgElement.src = validatedUrl;
+            })
+            .catch(error => {
+                console.error('Image validation failed:', error);
+                imgElement.src = 'images/fallback-image.svg'; // Load fallback image
+            });
+    }
+
+    // Apply to all images
+    document.querySelectorAll('img').forEach(img => {
+        if (img.src) {
+            loadSecureImage(img, img.src);
+        }
+    });
+
+    // Form handling with loading states
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            const submitButton = form.querySelector('[type="submit"]');
+            if (submitButton) {
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+            }
+        });
+    });
 });
 
 function createNeuralNetwork() {
@@ -197,4 +306,18 @@ function createDataStreams() {
     }
 
     return container;
+}
+
+// HTML sanitization function
+function sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Use when inserting dynamic content
+function insertContent(element, content) {
+    if (typeof content === 'string') {
+        element.innerHTML = sanitizeHTML(content);
+    }
 } 
