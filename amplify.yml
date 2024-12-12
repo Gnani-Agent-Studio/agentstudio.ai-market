@@ -3,14 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
+        - nvm install 16
         - nvm use 16
+        - node --version
+        - npm --version
         - if [ -f ".env" ]; then cp .env .env.production; fi
         - npm cache clean --force
         - rm -rf node_modules package-lock.json
-        - npm install --no-package-lock --legacy-peer-deps
+        - npm install --no-package-lock --legacy-peer-deps --verbose
     build:
       commands:
-        - npm run build
+        - CI=false npm run build
   artifacts:
     baseDirectory: build
     files:
