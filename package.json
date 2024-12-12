@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "serve": "^14.2.1",
-    "ws": "8.13.0"
+    "serve": "^14.2.1"
   },
   "engines": {
     "node": ">=18.0.0"
