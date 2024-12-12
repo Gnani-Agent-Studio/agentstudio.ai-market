@@ -4,12 +4,13 @@ frontend:
     preBuild:
       commands:
         - if [ -f ".env" ]; then cp .env .env.production; fi
-        - npm install
+        - npm cache clean --force
+        - npm install --legacy-peer-deps
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: /
+    baseDirectory: build
     files:
       - '**/*'
   cache:
