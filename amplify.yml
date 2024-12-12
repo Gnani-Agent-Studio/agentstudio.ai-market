@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - "export NODE_OPTIONS=--max_old_space_size=4096"
         - "nvm use 16 || nvm install 16"
         - "echo 'Node version:' $(node --version)"
         - "echo 'NPM version:' $(npm --version)"
@@ -12,14 +13,16 @@ frontend:
           fi
         - "npm cache clean --force"
         - "rm -rf node_modules package-lock.json"
-        - "npm install --no-package-lock --legacy-peer-deps --loglevel=error"
+        - "npm install --no-package-lock --legacy-peer-deps --loglevel=error --production=false"
     build:
       commands:
-        - "CI=false NODE_ENV=production npm run build"
+        - "export NODE_ENV=production"
+        - "CI=false npm run build"
   artifacts:
     baseDirectory: build
     files:
       - '**/*'
+    discard-paths: no
   cache:
     paths:
       - node_modules/**/*
