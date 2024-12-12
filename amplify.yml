@@ -3,20 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Use Node.js 16 LTS
-        - nvm use 16 || nvm install 16
-        - echo "Node version: $(node --version)"
-        - echo "NPM version: $(npm --version)"
-        # Environment setup
-        - if [ -f ".env" ]; then cp .env .env.production; fi
-        # Clean installation
-        - npm cache clean --force
-        - rm -rf node_modules package-lock.json
-        # Install dependencies with minimal output
-        - npm install --no-package-lock --legacy-peer-deps --loglevel=error
+        - "nvm use 16 || nvm install 16"
+        - "echo 'Node version:' $(node --version)"
+        - "echo 'NPM version:' $(npm --version)"
+        - |
+          if [ -f ".env" ]; then 
+            cp .env .env.production
+          fi
+        - "npm cache clean --force"
+        - "rm -rf node_modules package-lock.json"
+        - "npm install --no-package-lock --legacy-peer-deps --loglevel=error"
     build:
       commands:
-        - CI=false NODE_ENV=production npm run build
+        - "CI=false NODE_ENV=production npm run build"
   artifacts:
     baseDirectory: build
     files:
