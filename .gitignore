@@ -1,9 +1,39 @@
+# Dependencies
 node_modules/
-dist/
-.DS_Store
+
+# Environment variables
 .env
-.env.*
+.env.local
+.env.development
+.env.production
+
+# Build output
+dist/
+build/
+
+# AWS Amplify
+amplify/
+.amplify/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.amplify/ 
+
+# System Files
+.DS_Store
+Thumbs.db 
+
+# Security-related files
+*.pem
+*.key
+*.crt
+*.csr
+*.cert
+security-config.local.js
+.env*
+.ssh/
+js/config.js 

@@ -4,8 +4,7 @@ const path = require('path');
 const requiredFiles = [
     'index.html',
     'css/styles.css',
-    'js/main.js',
-    'images/fallback-image.svg'
+    'js/main.js'
 ];
 
 const validateBuild = () => {

@@ -1,0 +1,1 @@
+// Remove this file as the initialization is already handled in supabase-client.js 

@@ -1,0 +1,1 @@
+// Remove this file as its functionality is covered by header-loader.js 

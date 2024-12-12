@@ -7,28 +7,20 @@
     <meta name="keywords" content="AI agents, artificial intelligence, developer platform, AI marketplace">
     <title>Agent-Studio.AI - Connect with AI Agents Worldwide</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.supabaseLoaded = new Promise((resolve) => {
+            if (window.supabase) resolve(window.supabase);
+            else window.addEventListener('load', () => resolve(window.supabase));
+        });
+    </script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/header-loader.js"></script>
+    <script type="module" src="js/main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="home-page">
-    <header class="main-header">
-        <nav class="nav-container">
-            <div class="logo">
-                <a href="index.html">Agent-Studio.AI</a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="ai-agents.html">AI Agents</a></li>
-                <li><a href="for-users.html">For Users</a></li>
-                <li><a href="for-developers.html">For Developers</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html" class="nav-button">Login</a></li>
-                <li><a href="signup.html" class="nav-button highlight">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="menu-overlay"></div>
 
     <section class="hero">
         <div class="hero-content">
