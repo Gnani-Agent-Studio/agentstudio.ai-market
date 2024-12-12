@@ -11,13 +11,16 @@ frontend:
           if [ -f ".env" ]; then 
             cp .env .env.production
           fi
-        - "npm cache clean --force"
-        - "rm -rf node_modules package-lock.json"
-        - "npm install --no-package-lock --legacy-peer-deps --loglevel=error --production=false"
     build:
       commands:
-        - "export NODE_ENV=production"
-        - "CI=false npm run build"
+        - |
+          echo "Copying static files..."
+          mkdir -p build
+          cp -r *.html build/
+          cp -r css build/
+          cp -r js build/
+          cp -r images build/
+          echo "Build completed"
   artifacts:
     baseDirectory: build
     files:
@@ -31,7 +34,7 @@ frontend:
       headers:
         - key: 'Cache-Control'
           value: 'public, max-age=31536000, immutable'
-    - pattern: 'index.html'
+    - pattern: '*.html'
       headers:
         - key: 'Cache-Control'
           value: 'public, max-age=0, must-revalidate' 
