@@ -10,9 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "serve": "^14.2.1"
-  },
-  "devDependencies": {
+    "serve": "^14.2.1",
     "ws": "^8.14.2"
   },
   "engines": {
